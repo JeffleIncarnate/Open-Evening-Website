@@ -1,0 +1,26 @@
+body {
+  background-color: var(--white);
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue: #0088a9;
+  --grey: #24252a;
+  --white: #edf0f1;
+}
+
+nav {
+  background-color: red;
+  display: flex;
+  align-self: center;
+}
+
+nav > ul {
+  display: inline-flex;
+}
+
+nav > ul li {
+  list-style-type: none;
+  padding: 2%;
+}
