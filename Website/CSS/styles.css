@@ -2,6 +2,7 @@ body {
   background-color: var(--white);
   margin: 0;
   padding: 0;
+  color: var(--blue);
 }
 
 :root {
@@ -20,6 +21,7 @@ nav {
 
 nav h2 {
   position: relative;
+  color: var(--white);
   bottom: 10px;
   margin-top: 0;
   margin-left: 2%;
@@ -53,4 +55,5 @@ form {
   height: 40vh;
   margin-top: 20vh;
   margin-left: 35%;
+  box-shadow: 0 15px 30px 0 rgb(0 47 107 / 10%);
 }
