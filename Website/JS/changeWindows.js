@@ -1,3 +1,3 @@
-function ChangeWindow() {
-  window.open("PAGES/banking.html");
+function ChangeWindows(accessNumber, password) {
+  console.log("Test");
 }

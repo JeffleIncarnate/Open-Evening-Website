@@ -17,16 +17,19 @@
     </nav>
 
     <main>
-      <form action="">
+      <form action="" onsubmit="GetData(); return false">
         <h2>Welcome</h2>
         <label for="AccessNumber">Access Number: </label>
         <input type="text" name="AccessNumber" id="AccessNumber" />
 
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password">
+        <label for="Password">Password</label>
+        <input type="text" name="Password" id="Password" />
+
+        <input type="submit" />
       </form>
     </main>
 
     <script src="JS/changeWindows.js"></script>
+    <script src="JS/getData.js"></script>
   </body>
 </html>
