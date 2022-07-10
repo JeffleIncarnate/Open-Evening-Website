@@ -3,6 +3,9 @@ const express = require("express");
 // Router file paths
 const userInDatabase = require("./routes/userInDatabase");
 const getAllUsers = require("./routes/getAllUsers");
+// Postgre
+const { Pool, Client } = require("pg");
+require("dotenv").config();
 
 // App constructor
 const app = express();
