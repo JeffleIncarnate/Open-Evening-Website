@@ -5,13 +5,15 @@ This is gonna be a Node JS api to interact with a Web app, therefore making a pr
 # Dependencies
 
 - Express
+- Dotenv
+- PG
 
 ## Road map
 
 - [x] Basic Hello world
-- [ ] Setup database (either SQL or MongoDB)
+- [x] Setup database (Postgre SQL)
 - [ ] Authenticate user login
-- [ ] Save user login to data base is they signed up
+- [ ] Save user login to data base if they signed up
 
 ## Credit
 
