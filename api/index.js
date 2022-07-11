@@ -3,6 +3,8 @@ const express = require("express");
 // Router file paths
 const userInDatabase = require("./routes/userInDatabase");
 const getAllUsers = require("./routes/getAllUsers");
+const getUserData = require("./routes/getUserData");
+
 // Postgre
 const { Pool, Client } = require("pg");
 require("dotenv").config();
@@ -14,6 +16,7 @@ const port = 3000;
 // Routes uses
 app.use("/userInDatabase", userInDatabase);
 app.use("/GetAllUsers", getAllUsers);
+app.use("/getUserData", getUserData);
 
 // First basic endpoint
 app.get("/", (req, res) => {

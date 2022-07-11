@@ -6,6 +6,7 @@ require("dotenv").config();
 const connectionString = process.env.CONNECTIONSTRING;
 
 router.get("/:username", (req, res) => {
+  let userInDataBase = false;
   const query = "SELECT EXISTS(SELECT * from users WHERE username=$1);";
   const userName = req.params.username;
   const values = [userName];
@@ -20,6 +21,7 @@ router.get("/:username", (req, res) => {
       res.send(err.stack)
     } else {
       res.send(sqlRes.rows[0].exists);
+      userInDataBase = true;
     }
   });
 });
