@@ -18,9 +18,13 @@ router.get("/:username", (req, res) => {
   client.query(query, values, (err, sqlRes) => {
     if (err) {
       res.send(err.stack);
+    } else if (sqlRes.rowCount === 0) {
+      res.json({ error: "User not in database" });
     } else {
       res.send(sqlRes.rows[0]);
     }
+
+    client.end();
   });
 });
 

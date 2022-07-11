@@ -18,11 +18,13 @@ router.get("/:username", (req, res) => {
   client.connect();
   client.query(query, values, (err, sqlRes) => {
     if (err) {
-      res.send(err.stack)
+      res.send(err.stack);
     } else {
-      res.send(sqlRes.rows[0].exists);
+      res.json({ result: sqlRes.rows[0].exists });
       userInDataBase = true;
     }
+
+    client.end();
   });
 });
 
