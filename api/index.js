@@ -4,6 +4,7 @@ const express = require("express");
 const userInDatabase = require("./routes/userInDatabase");
 const getAllUsers = require("./routes/getAllUsers");
 const getUserData = require("./routes/getUserData");
+const signUpUser = require("./routes/signUpUser");
 
 // Postgre
 const { Pool, Client } = require("pg");
@@ -15,12 +16,13 @@ const port = 3000;
 
 // Routes uses
 app.use("/userInDatabase", userInDatabase);
-app.use("/GetAllUsers", getAllUsers);
+app.use("/getAllUsers", getAllUsers);
 app.use("/getUserData", getUserData);
+app.use("/signUpUser", signUpUser);
 
 // First basic endpoint
 app.get("/", (req, res) => {
-  res.send("Please pick a real endpoint");
+  res.json({ result: "Please pick a real endpoint" });
 });
 
 // Listening on: localhost:3000
