@@ -1,5 +1,7 @@
 // Express
 const express = require("express");
+// CORS
+const cors = require("cors");
 // Router file paths
 const userInDatabase = require("./routes/userInDatabase");
 const getAllUsers = require("./routes/getAllUsers");
@@ -15,6 +17,9 @@ require("dotenv").config();
 // App constructor
 const app = express();
 const port = 3000;
+
+// CORS
+app.use(cors());
 
 // Routes uses
 app.use("/userInDatabase", userInDatabase);
