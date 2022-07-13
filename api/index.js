@@ -5,6 +5,8 @@ const userInDatabase = require("./routes/userInDatabase");
 const getAllUsers = require("./routes/getAllUsers");
 const getUserData = require("./routes/getUserData");
 const signUpUser = require("./routes/signUpUser");
+const updateUser = require("./routes/updateUser");
+const deleteUser = require("./routes/deleteUser");
 
 // Postgre
 const { Pool, Client } = require("pg");
@@ -19,6 +21,8 @@ app.use("/userInDatabase", userInDatabase);
 app.use("/getAllUsers", getAllUsers);
 app.use("/getUserData", getUserData);
 app.use("/signUpUser", signUpUser);
+app.use("/updateUser", updateUser);
+app.use("/deleteUser", deleteUser);
 
 // First basic endpoint
 app.get("/", (req, res) => {
