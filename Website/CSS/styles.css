@@ -40,62 +40,119 @@ nav > ul {
   list-style-type: none;
   width: 14%;
 }
+
+nav > ul li a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
 nav > ul li {
   display: inline-block;
   margin: 0 4% 4% 4%;
 }
 
-/* -- Main -- */
-form {
+/* -- Splash page -- */
+.DHR__Header-SplashPage {
+  width: 100%;
+  height: 600px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 25%;
-  background-color: white;
-  height: 40vh;
-  margin-top: 20vh;
-  margin-left: 35%;
-  box-shadow: 0 15px 30px 0 rgb(0 47 107 / 10%);
+  justify-content: center;
+  background-position-y: -350px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://www.bnz.co.nz/assets/bnz/personal-banking/welcome-area/home-loans-welcome-area-desktop.jpg?9518642f999a31c59f25bf39448409cae58bfe64");
+}
+
+.DHR__Header-SplashPage h1 {
+  position: absolute;
+  top: 320px;
+  color: var(--white);
+  font-weight: 50;
+  left: 400px;
+  font-size: 3.5rem;
+  width: 700px;
+}
+
+/* -- MAIN -- */
+.DHR__Main-Links {
+  width: 60%;
+  margin-left: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DHR__Main-Links > ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+.DHR__Main-Links > ul li a {
+  text-decoration: none;
+  color: var(--blue);
+  transition: all 0.3s ease 0s;
+}
+
+.DHR__Main-Links > ul li a:hover {
+  opacity: 0.7;
+}
+
+/* -- REGISTER -- */
+form {
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 3rem;
+  background-color: var(--blue);
 }
 
 form h2 {
-  font-size: 2.5rem;
-  margin: 0.5rem;
+  text-align: center;
+  font-size: 4rem;
+  color: var(--white);
 }
 
-form label {
-  margin-top: 0.6rem;
-  margin-bottom: 0.4rem;
-}
-
-form input {
+#FirstName,
+#LastName,
+#Email,
+#Username,
+#Password {
+  padding: 1rem;
+  width: 50%;
+  margin-left: 25%;
   border-top: none;
-  border-right: none;
   border-left: none;
-  border-radius: 0 5px;
-  border-bottom: var(--blue) solid 2.5px;
-  width: 70%;
-  color: var(--blue);
+  border-right: none;
+  border-bottom: 2px var(--white) solid;
+  margin-top: 1rem;
+  height: 1.5rem;
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--white);
 }
 
-form input::placeholder {
-  opacity: 0.5;
-  color: var(--blue);
+#FirstName::placeholder,
+#LastName::placeholder,
+#Email::placeholder,
+#Username::placeholder,
+#Password::placeholder {
+  color: var(--white);
 }
 
-form #Submit {
-  width: 70%;
-  margin: 1rem 0 1rem 0;
+#submit {
+  width: 40%;
   height: 2rem;
-  background: transparent;
-  border: var(--blue) solid 2px;
-  border-radius: 5px;
-  color: var(--blue);
-  transition: all 0.3s;
+  color: var(--white);
+  background-color: transparent;
+  border: 2px var(--white) solid;
+  margin-left: 30%;
+  margin-top: 1rem;
+  transition: all 0.3s ease 0s;
 }
 
-form #Submit:hover {
-  cursor: pointer;
+#submit:hover {
   opacity: 0.5;
+  cursor: pointer;
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dhruv Banking</title>
+    <link rel="stylesheet" href="../CSS/LoginPage.css" />
+  </head>
+  <body>
+    <nav>
+      <h2>Dhruv Banking™</h2>
+      <ul>
+        <li>Personal Banking</li>
+        <li>Register</li>
+      </ul>
+    </nav>
+
+    <main>
+      <form action="" onsubmit="GetData(); return false">
+        <h2>Welcome</h2>
+        <label for="AccessNumber"><strong>User Name</strong></label>
+        <input
+          type="text"
+          name="UserName"
+          id="UserName"
+          placeholder="Please enter your UserName"
+        />
+
+        <label for="Password"><strong>Password</strong></label>
+        <input
+          type="password"
+          name="Password"
+          id="Password"
+          placeholder="Please enter your Password"
+        />
+
+        <input type="submit" id="Submit" />
+      </form>
+    </main>
+
+    <script src="JS/changeWindows.js"></script>
+    <script src="JS/getData.js"></script>
+  </body>
+</html>

@@ -4,42 +4,93 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dhruv Banking</title>
+    <title>Dhruv Banking™️</title>
     <link rel="stylesheet" href="CSS/styles.css" />
   </head>
   <body>
-    <nav>
-      <h2>Dhruv Banking™</h2>
-      <ul>
-        <li>Personal Banking</li>
-        <li>Register</li>
-      </ul>
-    </nav>
+    <header>
+      <nav>
+        <h2>Dhruv Banking™</h2>
+        <ul>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Register</a></li>
+        </ul>
+      </nav>
+
+      <div class="DHR__Header-SplashPage">
+        <h1>If you need more from your home, let’s find a way</h1>
+      </div>
+    </header>
 
     <main>
-      <form action="" onsubmit="GetData(); return false">
-        <h2>Welcome</h2>
-        <label for="AccessNumber"><strong>User Name</strong></label>
-        <input
-          type="text"
-          name="UserName"
-          id="UserName"
-          placeholder="Please enter your UserName"
-        />
+      <div class="DHR__Main-Links">
+        <ul>
+          <li><a href="#">Everyday banking</a></li>
+          <li><a href="#">Home loans</a></li>
+          <li><a href="#">Credit cards</a></li>
+          <li><a href="#">KiwiSaver</a></li>
+          <li><a href="#">Investments</a></li>
+          <li><a href="#">Personal loans</a></li>
+          <li><a href="#">Insurance</a></li>
+          <li><a href="#">International</a></li>
+        </ul>
+      </div>
 
-        <label for="Password"><strong>Password</strong></label>
-        <input
-          type="password"
-          name="Password"
-          id="Password"
-          placeholder="Please enter your Password"
-        />
+      <!-- LOGIN/REGISTER SECTION -->
+      <div class="DHR__Main-Register">
+        <form onsubmit="return false">
+          <!-- TITLE -->
+          <h2>Sign Up!</h2>
 
-        <input type="submit" id="Submit" />
-      </form>
+          <!-- FIRST NAME -->
+          <input
+            id="FirstName"
+            type="text"
+            placeholder="Enter First Name"
+            name="name"
+          />
+
+          <!-- LAST NAME -->
+          <input
+            id="LastName"
+            type="text"
+            placeholder="Enter last Name"
+            name="name"
+          />
+
+          <!-- USER NAME -->
+          <input
+            id="Username"
+            type="text"
+            placeholder="Enter your Username"
+            name="YearLevel"
+          />
+
+          <!-- EMAIL -->
+          <input
+            type="text"
+            id="Email"
+            placeholder="Enter your Email"
+            name="Email"
+          />
+
+          <!-- PASSWORD -->
+          <input
+            type="password"
+            id="Password"
+            placeholder="Enter your Password"
+            name="Password"
+          />
+
+          <!-- Submit -->
+          <input id="submit" type="submit" />
+        </form>
+      </div>
     </main>
 
-    <script src="JS/changeWindows.js"></script>
-    <script src="JS/getData.js"></script>
+    <footer>
+      <div class="DHR__Footer-Left"><ul></ul></div>
+      <div class="DHR__Footer-Right"></div>
+    </footer>
   </body>
 </html>
