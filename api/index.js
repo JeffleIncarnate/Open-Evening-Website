@@ -9,6 +9,7 @@ const getUserData = require("./routes/getUserData");
 const signUpUser = require("./routes/signUpUser");
 const updateUser = require("./routes/updateUser");
 const deleteUser = require("./routes/deleteUser");
+const authUser = require("./routes/auth/postUser");
 
 // Postgre
 const { Pool, Client } = require("pg");
@@ -28,6 +29,7 @@ app.use("/getUserData", getUserData);
 app.use("/signUpUser", signUpUser);
 app.use("/updateUser", updateUser);
 app.use("/deleteUser", deleteUser);
+app.use("/authUser", authUser);
 
 // First basic endpoint
 app.get("/", (req, res) => {
@@ -36,5 +38,5 @@ app.get("/", (req, res) => {
 
 // Listening on: localhost:3000
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`API listening on port ${port}`);
 });
