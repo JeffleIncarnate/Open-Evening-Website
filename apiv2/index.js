@@ -5,8 +5,11 @@ const cors = require("cors");
 require("dotenv").config(); // This is the dotenv package, so we can read an environment file and variables then save them to a var
 
 // Below are all the routers we will be using, basically these are routes that we made but are in different files.
+// GET
 const getAllUsers = require("./routes/get/getAllUsers");
 const getSpecificUser = require("./routes/get/getSpecificUser");
+// POST
+const postUser = require("./routes/post/postUser");
 
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
@@ -19,7 +22,9 @@ app.use(express.json()); // This is using express.json so we can accept json as 
 // GET
 app.use("/allUsers", getAllUsers);
 app.use("/specificUser", getSpecificUser);
+
 // POST
+app.use("/postUser", postUser);
 
 // Environment Variables
 const name = process.env.NAME;
