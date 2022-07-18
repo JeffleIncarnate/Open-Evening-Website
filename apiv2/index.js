@@ -6,6 +6,7 @@ require("dotenv").config(); // This is the dotenv package, so we can read an env
 
 // Below are all the routers we will be using, basically these are routes that we made but are in different files.
 const getAllUsers = require("./routes/get/getAllUsers");
+const getSpecificUser = require("./routes/get/getSpecificUser");
 
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
@@ -15,7 +16,10 @@ const app = express();
 app.use(express.json()); // This is using express.json so we can accept json as a valid body
 
 // Route Uses
-app.use("/get", getAllUsers);
+// GET
+app.use("/allUsers", getAllUsers);
+app.use("/specificUser", getSpecificUser);
+// POST
 
 // Environment Variables
 const name = process.env.NAME;
