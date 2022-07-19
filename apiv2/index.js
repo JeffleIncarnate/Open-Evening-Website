@@ -8,8 +8,12 @@ require("dotenv").config(); // This is the dotenv package, so we can read an env
 // GET
 const getAllUsers = require("./routes/get/getAllUsers");
 const getSpecificUser = require("./routes/get/getSpecificUser");
+
 // POST
 const postUser = require("./routes/post/postUser");
+
+// DELETE
+const deteteUser = require("./routes/delete/deleteUser");
 
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
@@ -25,6 +29,9 @@ app.use("/specificUser", getSpecificUser);
 
 // POST
 app.use("/postUser", postUser);
+
+// DELETE
+app.use("/deleteUser", deteteUser);
 
 // Environment Variables
 const name = process.env.NAME;
