@@ -84,13 +84,29 @@ router.post("/", (req, res) => {
 
       // Connect
       client.connect();
+
+      // Checking if another user with the same username exists
+      const existsQuery =
+        "SELECT EXISTS(SELECT * from users WHERE username=$1);";
+      const existsValues = [userNameSQl];
+
+      client.query(existsQuery, existsValues, (err, sqlRes) => {
+        // err, set status and send
+        if (err) {
+          res.status(500).json({ result: "Internal Server Error" });
+        } else if (sqlRes.rows[0].exists === true) {
+          res.status(418).json({ result: "User Already Exists." });
+        } else {
+        }
+      });
+
       // This is the query callback function, it takes 1 parameter
       // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
       // client.query (query, values)...
       // A call back is a new form of ES6 Javascript syntax
       // Old syntax:
       // client.query('SELECT...' function(req, sqlRes) {...})
-      // New syntax
+      // New syntax:
       // client.query('SELECT...',  (req, sqlRes) => {})
       client.query(query, values, (err, sqlRes) => {
         // Here we are checking for errors, if we get them then we throw an 500 status code and an Internal Server Error
