@@ -90,13 +90,15 @@ router.post("/", (req, res) => {
         "SELECT EXISTS(SELECT * from users WHERE username=$1);";
       const existsValues = [userNameSQl];
 
+      let userExists = false;
+
       client.query(existsQuery, existsValues, (err, sqlRes) => {
         // err, set status and send
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
         } else if (sqlRes.rows[0].exists === true) {
-          res.status(418).json({ result: "User Already Exists." });
-        } else {
+          userExists = true;
+          res.json({ result: "User Already Exists." });
         }
       });
 
@@ -113,9 +115,11 @@ router.post("/", (req, res) => {
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
         } else {
-          res
-            .status(201)
-            .json({ result: `Created new instance of ${userNameSQl}` });
+          if (!userExists) {
+            res
+              .status(201)
+              .json({ result: `Created new instance of ${userNameSQl}` });
+          }
         }
       });
     } else {
