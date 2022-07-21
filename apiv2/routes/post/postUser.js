@@ -39,18 +39,22 @@ router.post("/", (req, res) => {
       const userNameSQl = req.body[1].username;
       const firstNameSQL = req.body[1].firstname;
       const lastNameSQL = req.body[1].lastname;
+      const checkingsSQl = 0; // Checkings is 0 by default
       const passwordSQL = req.body[1].password;
-      const accountBalanceSQL = 0;
+      const emailSQL = req.body[1].email;
+      const savingsSQL = 0; // Savings is 0 by default
 
       // Paramerised query $1, $2 will be fille sin the order from the the array 'values' $1 == userNameSQL, $2 == firstNameSQL and so fourth
       let query =
-        "INSERT INTO users (username, firstname, lastname, accountbalance, password) VALUES ($1, $2, $3, $4, $5)";
+        "INSERT INTO users (username, firstname, lastname, checkings, password, email, savings) VALUES ($1, $2, $3, $4, $5, $6, $7)";
       const values = [
         userNameSQl,
         firstNameSQL,
         lastNameSQL,
-        accountBalanceSQL,
+        checkingsSQl,
         passwordSQL,
+        emailSQL,
+        savingsSQL,
       ];
 
       // This is a for loop I've implemented to go through the values that the user gave, to make sure they provided all the values
@@ -69,6 +73,9 @@ router.post("/", (req, res) => {
               break;
             case 4:
               res.status(404).json({ provide: "password" }); // Setting the status to 404 if nothing is provided, also sending password back if it's not provided
+              break;
+            case 5:
+              res.status(404).json({ provide: "email" }); // Setting the status to 404 if nothing is provided, also sending email back if it's not provided
               break;
           }
         } else {

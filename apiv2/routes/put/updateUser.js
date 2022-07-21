@@ -86,6 +86,11 @@ router.put("/:userName", (req, res) => {
             fullListKeys.push("password");
             fullListValues.push(reqUpdate.password);
           }
+          // If email is not empty or null, then we will add it to the query
+          if (reqUpdate.email != "") {
+            fullListKeys.push("email");
+            fullListValues.push(reqUpdate.email);
+          }
 
           // This is the starting query
           let query = "UPDATE users SET ";

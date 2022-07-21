@@ -17,6 +17,11 @@ const deteteUser = require("./routes/delete/deleteUser");
 
 // PUT
 const updateUser = require("./routes/put/updateUser");
+// Put (Money)
+const addMoneyAccount = require("./routes/put/add-money/main-account/addAccount");
+const addMoneySavings = require("./routes/put/add-money/add-savings/addSavings");
+
+//Put (Transfer)
 
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
