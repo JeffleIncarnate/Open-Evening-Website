@@ -113,7 +113,7 @@ Then make a delete request to the endpoint:
 }
 ```
 
-Then make a delete request to the endpoint:
+Then make a post request to the endpoint:
 
 `http://localhost:3000/postUser/`
 
