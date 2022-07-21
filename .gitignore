@@ -1,4 +1,7 @@
+# Mode Modules
 node_modules/
-.env
-req.rest
+
+# Files/Folders
 api/
+.env
+Reminders.txt
