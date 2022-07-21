@@ -16,8 +16,12 @@ const password = process.env.PASSWORD;
 const connectionString = process.env.CONNECTIONSTRING;
 
 router.put("/:userName", (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    res.json({ result: "Body is Empty" });
+  try {
+    if (Object.keys(req.body).length === 0) {
+      res.json({ result: "Body is Empty" });
+    }
+  } catch (ex) {
+    res.json(ex);
   }
 
   // Here I am getting the name and password from auth json and I'm setting them to variables nameBody, and password body
@@ -46,50 +50,62 @@ router.put("/:userName", (req, res) => {
         "SELECT EXISTS(SELECT * from users WHERE username=$1);";
       const existsValues = [oldUserName];
 
-      var userInDatabase = false;
-
       client.query(existsQuery, existsValues, (err, sqlRes) => {
         // err, set status and send
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
-        } else if (sqlRes.rows[0].exists === true) {
+        }
+        // If the user does existm then we will construct the query.
+        else if (sqlRes.rows[0].exists === true) {
           /// ------------------------
           // Construct the query
           let reqUpdate = req.body[1];
 
+          // This is a list of all the keys that will be updated
           let fullListKeys = [];
+          // This is a list that holds all the values of the keys that need to be updated.
           let fullListValues = [];
 
+          // If username is not empty or null, then we will add it to the query
           if (reqUpdate.username != "") {
             fullListKeys.push("username");
             fullListValues.push(reqUpdate.username);
           }
+          // If firstname is not empty or null, then we will add it to the query
           if (reqUpdate.firstname != "") {
             fullListKeys.push("firstname");
             fullListValues.push(reqUpdate.firstname);
           }
+          // If lastname is not empty or null, then we will add it to the query
           if (reqUpdate.lastname != "") {
             fullListKeys.push("lastname");
             fullListValues.push(reqUpdate.lastname);
           }
+          // If password is not empty or null, then we will add it to the query
           if (reqUpdate.password != "") {
             fullListKeys.push("password");
             fullListValues.push(reqUpdate.password);
           }
 
+          // This is the starting query
           let query = "UPDATE users SET ";
 
-          let i;
-
-          for (i = 0; i < fullListKeys.length; i++) {
+          // is a for loop that creates the paramerized query
+          for (let i = 0; i < fullListKeys.length; i++) {
+            // G is here to act as the counter, (which is just i + 1)
+            // The reason for this is because Paramerters start at 1, while index's start at 1.
             let g = i + 1;
-            query += fullListKeys[i] + `=$${g}, `;
+            // This addes the key, and the $1 paramer to the query
+            query += fullListKeys[i] + `=$${g}, `; // e.g "firstname=$1"...
           }
 
+          // since the foor loop, adds a space, and a comma to the end of the query, we will then slice the array by 2 index's / Characters
           query = query.slice(0, -2);
 
+          // This is adds the username where the paramers above will be changed
           query += ` WHERE username='${oldUserName}'`;
 
+          // This is the query we made as well as the values we pulled from the json.
           client.query(query, fullListValues, (err, sqlRes) => {
             if (err) {
               res.status(500).json({ result: "Internal Server Error" });
