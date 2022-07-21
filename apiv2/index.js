@@ -15,6 +15,9 @@ const postUser = require("./routes/post/postUser");
 // DELETE
 const deteteUser = require("./routes/delete/deleteUser");
 
+// PUT
+const updateUser = require("./routes/put/updateUser");
+
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
 /// express().get...
@@ -32,6 +35,9 @@ app.use("/postUser", postUser);
 
 // DELETE
 app.use("/deleteUser", deteteUser);
+
+// Put
+app.use("/updateUser", updateUser);
 
 // Environment Variables
 const name = process.env.NAME;
