@@ -18,7 +18,7 @@ const deteteUser = require("./routes/delete/deleteUser");
 // PUT
 const updateUser = require("./routes/put/updateUser");
 // Put (Money)
-const addMoneyAccount = require("./routes/put/add-money/main-account/addAccount");
+const addMoneyCheckings = require("./routes/put/add-money/add-checkings/addCheckings");
 const addMoneySavings = require("./routes/put/add-money/add-savings/addSavings");
 
 //Put (Transfer)
@@ -43,6 +43,7 @@ app.use("/deleteUser", deteteUser);
 
 // Put
 app.use("/updateUser", updateUser);
+app.use("/addMoneyCheckings", addMoneyCheckings);
 
 // Environment Variables
 const name = process.env.NAME;
