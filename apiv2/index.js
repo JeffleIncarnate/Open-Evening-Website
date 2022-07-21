@@ -44,6 +44,7 @@ app.use("/deleteUser", deteteUser);
 // Put
 app.use("/updateUser", updateUser);
 app.use("/addMoneyCheckings", addMoneyCheckings);
+app.use("/addMoneySavings", addMoneySavings);
 
 // Environment Variables
 const name = process.env.NAME;
