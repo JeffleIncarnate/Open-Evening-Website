@@ -98,28 +98,30 @@ router.post("/", (req, res) => {
           res.status(500).json({ result: "Internal Server Error" });
         } else if (sqlRes.rows[0].exists === true) {
           userExists = true;
-          res.json({ result: "User Already Exists." });
-        }
-      });
-
-      // This is the query callback function, it takes 1 parameter
-      // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
-      // client.query (query, values)...
-      // A call back is a new form of ES6 Javascript syntax
-      // Old syntax:
-      // client.query('SELECT...' function(req, sqlRes) {...})
-      // New syntax:
-      // client.query('SELECT...',  (req, sqlRes) => {})
-      client.query(query, values, (err, sqlRes) => {
-        // Here we are checking for errors, if we get them then we throw an 500 status code and an Internal Server Error
-        if (err) {
-          res.status(500).json({ result: "Internal Server Error" });
+          res
+            .status(500)
+            .json({ result: `An instance of ${userNameSQl} already exists` });
         } else {
-          if (!userExists) {
-            res
-              .status(201)
-              .json({ result: `Created new instance of ${userNameSQl}` });
-          }
+          // This is the query callback function, it takes 1 parameter
+          // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
+          // client.query (query, values)...
+          // A call back is a new form of ES6 Javascript syntax
+          // Old syntax:
+          // client.query('SELECT...' function(req, sqlRes) {...})
+          // New syntax:
+          // client.query('SELECT...',  (req, sqlRes) => {})
+          client.query(query, values, (err, sqlRes) => {
+            // Here we are checking for errors, if we get them then we throw an 500 status code and an Internal Server Error
+            if (err) {
+              res.status(500).json({ result: "Internal Server Error" });
+            } else {
+              if (!userExists) {
+                res
+                  .status(201)
+                  .json({ result: `Created new instance of ${userNameSQl}` });
+              }
+            }
+          });
         }
       });
     } else {
