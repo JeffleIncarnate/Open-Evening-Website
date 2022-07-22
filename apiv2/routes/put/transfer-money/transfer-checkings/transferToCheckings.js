@@ -48,38 +48,61 @@ router.put("/:username", (req, res) => {
 
       const userName = req.params.username;
 
-      const existsQuery =
-        "SELECT EXISTS(SELECT * from users WHERE username=$1);";
-      const existsValues = [userName];
+      const enoughMoneyQuery = "SELECT savings FROM users WHERE username=$1";
+      const enoughMoneyValues = [userName];
 
-      cleint.query(existsQuery, existsValues, (err, sqlRes) => {
-        if (err) {
-          res.status(500).json({ result: "Internal Server Error" });
-        } else if (sqlRes.rows[0].exists === true) {
-          if (notMoney == false) {
-            const updateQuery =
-              "UPDATE users SET checkings=checkings+$1, savings=savings-$2 WHERE username=$3";
-            const updateValues = [amount, amount, userName];
-            cleint.query(updateQuery, updateValues, (error, sqlResponse) => {
-              if (error) {
-                res.status(500).json({ result: "Internal Server Error" });
-              } else {
-                res.status(201).json({
-                  result: `Successfully added ${amount} to '${userName}' checkings.`,
-                });
-              }
-            });
+      cleint.query(
+        enoughMoneyQuery,
+        enoughMoneyValues,
+        (existsErr, existsSqlRes) => {
+          if (existsErr) {
+            res.status(500).json({ result: "Internal Server Error" });
           } else {
-            res
-              .status(500)
-              .json({ result: "Amount provided is null or nothing" });
+            var amountInSavings = existsSqlRes.rows[0].savings;
+            if (amount > amountInSavings) {
+              res.status(400).json({ result: "Insufficient funds" });
+            } else {
+              const existsQuery =
+                "SELECT EXISTS(SELECT * from users WHERE username=$1);";
+              const existsValues = [userName];
+              cleint.query(existsQuery, existsValues, (err, sqlRes) => {
+                if (err) {
+                  res.status(500).json({ result: "Internal Server Error" });
+                } else if (sqlRes.rows[0].exists === true) {
+                  if (notMoney == false) {
+                    const updateQuery =
+                      "UPDATE users SET checkings=checkings+$1, savings=savings-$2 WHERE username=$3";
+                    const updateValues = [amount, amount, userName];
+                    cleint.query(
+                      updateQuery,
+                      updateValues,
+                      (error, sqlResponse) => {
+                        if (error) {
+                          res
+                            .status(500)
+                            .json({ result: "Internal Server Error" });
+                        } else {
+                          res.status(201).json({
+                            result: `Successfully added ${amount} to '${userName}' checkings.`,
+                          });
+                        }
+                      }
+                    );
+                  } else {
+                    res
+                      .status(500)
+                      .json({ result: "Amount provided is null or nothing" });
+                  }
+                } else {
+                  res
+                    .status(400)
+                    .json({ result: "User does not exist in the database" });
+                }
+              });
+            }
           }
-        } else {
-          res
-            .status(400)
-            .json({ result: "User does not exist in the database" });
         }
-      });
+      );
     } else {
       res.json({ result: "Wrong password." });
     }
