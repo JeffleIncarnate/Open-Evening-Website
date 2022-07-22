@@ -54,6 +54,7 @@ app.use("/addMoneySavings", addMoneySavings);
 // PUT (Transfer Money)
 app.use("/transferMoneyCheckings", transferMoneyCheckings);
 app.use("/transferMoneySavings", transferMoneySavings);
+app.use("/transferMoneyToAnotherUser", transferMoneyToAnotherUser);
 
 // Environment Variables
 const name = process.env.NAME;
