@@ -54,45 +54,62 @@ router.put("/:username", (req, res) => {
       });
 
       client.connect();
-      client.query(existsQuery, existsValues, (err, sqlRes) => {
+
+      const enoughMoneyQuery = "SELECT checkings FROM users WHERE username=$1";
+      const enoughMoneyValues = [transferFrom];
+
+      client.query(enoughMoneyQuery, enoughMoneyValues, (err, sqlRes) => {
         if (err) {
           res.status(500).json({ result: "Unknown Server Error" });
-        } else if (sqlRes.rows[0].exists === true) {
-          // Remove money from sent user
-          const removeMoneyQuery =
-            "UPDATE users SET checkings=checkings-$1 WHERE username=$2";
-          const removeMoneyValues = [amount, transferFrom];
-
-          client.query(
-            removeMoneyQuery,
-            removeMoneyValues,
-            (error, sqlResponse) => {
-              if (error) {
+        } else {
+          var amountInCheckings = sqlRes.rows[0].checkings;
+          if (amount > amountInCheckings) {
+            res.status(400).json({ result: "Insufficient funds" });
+          } else {
+            client.query(existsQuery, existsValues, (err, sqlRes) => {
+              if (err) {
                 res.status(500).json({ result: "Unknown Server Error" });
-              } else {
-                // Add money to user sent money.
-                const addMoneyQuery =
-                  "UPDATE users SET checkings=checkings+$1 WHERE username=$2";
-                const addMoneyValues = [amount, transferTo];
+              } else if (sqlRes.rows[0].exists === true) {
+                // Remove money from sent user
+                const removeMoneyQuery =
+                  "UPDATE users SET checkings=checkings-$1 WHERE username=$2";
+                const removeMoneyValues = [amount, transferFrom];
 
                 client.query(
-                  addMoneyQuery,
-                  addMoneyValues,
-                  (errorTo, sqlResponseTo) => {
-                    if (errorTo) {
+                  removeMoneyQuery,
+                  removeMoneyValues,
+                  (error, sqlResponse) => {
+                    if (error) {
                       res.status(500).json({ result: "Unknown Server Error" });
                     } else {
-                      res.status(201).json({
-                        result: `Succesfully added ${amount} to '${transferTo}' sent from ${transferFrom}`,
-                      });
+                      // Add money to user sent money.
+                      const addMoneyQuery =
+                        "UPDATE users SET checkings=checkings+$1 WHERE username=$2";
+                      const addMoneyValues = [amount, transferTo];
+
+                      client.query(
+                        addMoneyQuery,
+                        addMoneyValues,
+                        (errorTo, sqlResponseTo) => {
+                          if (errorTo) {
+                            res
+                              .status(500)
+                              .json({ result: "Unknown Server Error" });
+                          } else {
+                            res.status(201).json({
+                              result: `Succesfully added ${amount} to '${transferTo}' sent from ${transferFrom}`,
+                            });
+                          }
+                        }
+                      );
                     }
                   }
                 );
+              } else {
+                res.status(400).json({ result: "User does not exist." });
               }
-            }
-          );
-        } else {
-          res.status(400).json({ result: "User does not exist." });
+            });
+          }
         }
       });
     } else {
