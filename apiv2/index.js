@@ -17,11 +17,14 @@ const deteteUser = require("./routes/delete/deleteUser");
 
 // PUT
 const updateUser = require("./routes/put/updateUser");
-// Put (Money)
+// Put (Add Money)
 const addMoneyCheckings = require("./routes/put/add-money/add-checkings/addCheckings");
 const addMoneySavings = require("./routes/put/add-money/add-savings/addSavings");
 
-//Put (Transfer)
+// Put (Transfer Money)
+const transferMoneyCheckings = require("./routes/put/transfer-money/transfer-checkings/transferToCheckings");
+const transferMoneySavings = require("./routes/put/transfer-money/transfer-savings/transferToSavings");
+const transferMoneyToAnotherUser = require("./routes/put/transfer-money/transfer-another-user/transferToAnotherUser");
 
 // Here is a constructor for express so we don't have to use express() whenever making a new
 // endpoint e.g
@@ -43,8 +46,13 @@ app.use("/deleteUser", deteteUser);
 
 // Put
 app.use("/updateUser", updateUser);
+
+// PUT (Add money to account)
 app.use("/addMoneyCheckings", addMoneyCheckings);
 app.use("/addMoneySavings", addMoneySavings);
+
+// PUT (Transfer Money)
+app.use("/transferMoneyCheckings", transferMoneyCheckings);
 
 // Environment Variables
 const name = process.env.NAME;
