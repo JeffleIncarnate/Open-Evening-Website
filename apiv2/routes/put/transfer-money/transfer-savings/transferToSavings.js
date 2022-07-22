@@ -15,4 +15,77 @@ const password = process.env.PASSWORD;
 // I can query the database. Also, the database is a MySQL Postgre server
 const connectionString = process.env.CONNECTIONSTRING;
 
-router.put("/transferToSavings/", (req, res) => {});
+router.put("/:username", (req, res) => {
+  try {
+    if (Object.keys(req.body).length === 0) {
+      res.json({ result: "Body is Empty" });
+    }
+  } catch (ex) {
+    res.json(ex);
+  }
+
+  // Here I am getting the name and password from auth json and I'm setting them to variables nameBody, and passwordBody
+  // so it's easier to read the code
+  const nameBody = req.body.name;
+  const passwordBody = req.body.password;
+  let notMoney = false;
+
+  // Checking the name provided from the body and I'm checking it against the secret one
+  if (nameBody === name) {
+    // Here I am checking the password provided from the body and I'm checking it against the secret one
+    if (passwordBody === password) {
+      const amount = req.body.amount;
+
+      if (amount <= 0 || isNaN(amount)) {
+        notMoney = true;
+      }
+
+      const cleint = new Client({
+        connectionString,
+      });
+
+      cleint.connect();
+
+      const userName = req.params.username;
+
+      const existsQuery =
+        "SELECT EXISTS(SELECT * from users WHERE username=$1);";
+      const existsValues = [userName];
+
+      cleint.query(existsQuery, existsValues, (err, sqlRes) => {
+        if (err) {
+          res.status(500).json({ result: "Internal Server Error" });
+        } else if (sqlRes.rows[0].exists === true) {
+          if (notMoney == false) {
+            const updateQuery =
+              "UPDATE users SET checkings=checkings-$1, savings=savings+$2 WHERE username=$3";
+            const updateValues = [amount, amount, userName];
+            cleint.query(updateQuery, updateValues, (error, sqlResponse) => {
+              if (error) {
+                res.status(500).json({ result: "Internal Server Error" });
+              } else {
+                res.status(201).json({
+                  result: `Successfully added ${amount} to '${userName}' savings.`,
+                });
+              }
+            });
+          } else {
+            res
+              .status(500)
+              .json({ result: "Amount provided is null or nothing" });
+          }
+        } else {
+          res
+            .status(400)
+            .json({ result: "User does not exist in the database" });
+        }
+      });
+    } else {
+      res.json({ result: "Wrong password." });
+    }
+  } else {
+    res.json({ result: "Wrong username." });
+  }
+});
+
+module.exports = router;

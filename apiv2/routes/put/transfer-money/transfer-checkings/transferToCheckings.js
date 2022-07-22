@@ -28,6 +28,7 @@ router.put("/:username", (req, res) => {
   // so it's easier to read the code
   const nameBody = req.body.name;
   const passwordBody = req.body.password;
+  let notMoney = false;
 
   // Checking the name provided from the body and I'm checking it against the secret one
   if (nameBody === name) {
@@ -36,7 +37,7 @@ router.put("/:username", (req, res) => {
       const amount = req.body.amount;
 
       if (amount <= 0 || isNaN(amount)) {
-        res.status(500).json({ result: "Amount provided is null or nothing" });
+        notMoney = true;
       }
 
       const cleint = new Client({
@@ -55,18 +56,24 @@ router.put("/:username", (req, res) => {
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
         } else if (sqlRes.rows[0].exists === true) {
-          const updateQuery =
-            "UPDATE users SET checkings=checkings+$1, savings=savings-$2 WHERE username=$3";
-          const updateValues = [amount, amount, userName];
-          cleint.query(updateQuery, updateValues, (error, sqlResponse) => {
-            if (error) {
-              res.status(500).json({ result: "Internal Server Error" });
-            } else {
-              res.status(201).json({
-                result: `Successfully added ${amount} to '${userName}' checkings.`,
-              });
-            }
-          });
+          if (notMoney == false) {
+            const updateQuery =
+              "UPDATE users SET checkings=checkings+$1, savings=savings-$2 WHERE username=$3";
+            const updateValues = [amount, amount, userName];
+            cleint.query(updateQuery, updateValues, (error, sqlResponse) => {
+              if (error) {
+                res.status(500).json({ result: "Internal Server Error" });
+              } else {
+                res.status(201).json({
+                  result: `Successfully added ${amount} to '${userName}' checkings.`,
+                });
+              }
+            });
+          } else {
+            res
+              .status(500)
+              .json({ result: "Amount provided is null or nothing" });
+          }
         } else {
           res
             .status(400)
