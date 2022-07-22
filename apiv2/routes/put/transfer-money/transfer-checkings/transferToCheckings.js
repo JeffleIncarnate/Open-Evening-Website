@@ -15,7 +15,7 @@ const password = process.env.PASSWORD;
 // I can query the database. Also, the database is a MySQL Postgre server
 const connectionString = process.env.CONNECTIONSTRING;
 
-router.get("/:username", (req, res) => {
+router.put("/:username", (req, res) => {
   try {
     if (Object.keys(req.body).length === 0) {
       res.json({ result: "Body is Empty" });
