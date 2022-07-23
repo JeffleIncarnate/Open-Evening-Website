@@ -11,9 +11,6 @@ const auth = require("../auth/middleWareAuth");
 // Here we can accept json as a valid body object
 router.use(express.json());
 
-// These are the varaibles from the .env File and saving them as constants since they will never change
-const name = process.env.NAME;
-const password = process.env.PASSWORD;
 // This is the connection string to my Database, I am using this with the PG node js library so
 // I can query the database. Also, the database is a MySQL Postgre server
 const connectionString = process.env.CONNECTIONSTRING;
