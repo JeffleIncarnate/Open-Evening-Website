@@ -3,7 +3,10 @@ const express = require("express");
 let router = express.Router(); // This is a route, we are simply just using a let var and exporting it so we can split up our code and makeing it easier to read
 // This is the node js lirary I've chosen to go with to query my SQL server
 const { Pool, Client } = require("pg");
-require("dotenv").config();
+require("dotenv").config({ path: "../../../.env" }); // dot env
+
+// authentication middleware
+const auth = require("../../../auth/middleWareAuth");
 
 // Here we can accept json as a valid body object
 router.use(express.json());
@@ -15,7 +18,7 @@ const password = process.env.PASSWORD;
 // I can query the database. Also, the database is a MySQL Postgre server
 const connectionString = process.env.CONNECTIONSTRING;
 
-router.put("/:username", (req, res) => {
+router.put("/:username", auth.authenticateToken, (req, res) => {
   try {
     if (Object.keys(req.body).length === 0) {
       res.json({ result: "Body is Empty" });
@@ -24,91 +27,75 @@ router.put("/:username", (req, res) => {
     res.json(ex);
   }
 
-  // Here I am getting the name and password from auth json and I'm setting them to variables nameBody, and passwordBody
-  // so it's easier to read the code
-  const nameBody = req.body.name;
-  const passwordBody = req.body.password;
   let notMoney = false;
 
-  // Checking the name provided from the body and I'm checking it against the secret one
-  if (nameBody === name) {
-    // Here I am checking the password provided from the body and I'm checking it against the secret one
-    if (passwordBody === password) {
-      const amount = req.body.amount;
+  const amount = req.body.amount;
 
-      if (amount <= 0 || isNaN(amount)) {
-        notMoney = true;
-      }
-
-      const cleint = new Client({
-        connectionString,
-      });
-
-      cleint.connect();
-
-      const userName = req.params.username;
-
-      const enoughMoneyQuery = "SELECT checkings FROM users WHERE username=$1";
-      const enoughMoneyValues = [userName];
-
-      cleint.query(
-        enoughMoneyQuery,
-        enoughMoneyValues,
-        (existsErr, existsSqlRes) => {
-          if (existsErr) {
-            res.status(500).json({ result: "Internal Server Error" });
-          } else {
-            var amountInCheckings = existsSqlRes.rows[0].checkings;
-            if (amount > amountInCheckings) {
-              res.status(400).json({ result: "Insufficient funds" });
-            } else {
-              const existsQuery =
-                "SELECT EXISTS(SELECT * from users WHERE username=$1);";
-              const existsValues = [userName];
-              cleint.query(existsQuery, existsValues, (err, sqlRes) => {
-                if (err) {
-                  res.status(500).json({ result: "Internal Server Error" });
-                } else if (sqlRes.rows[0].exists === true) {
-                  if (notMoney == false) {
-                    const updateQuery =
-                      "UPDATE users SET savings=savings+$1, checkings=checkings-$2 WHERE username=$3";
-                    const updateValues = [amount, amount, userName];
-                    cleint.query(
-                      updateQuery,
-                      updateValues,
-                      (error, sqlResponse) => {
-                        if (error) {
-                          res
-                            .status(500)
-                            .json({ result: "Internal Server Error" });
-                        } else {
-                          res.status(201).json({
-                            result: `Successfully added ${amount} to '${userName}' savings.`,
-                          });
-                        }
-                      }
-                    );
-                  } else {
-                    res
-                      .status(500)
-                      .json({ result: "Amount provided is null or nothing" });
-                  }
-                } else {
-                  res
-                    .status(400)
-                    .json({ result: "User does not exist in the database" });
-                }
-              });
-            }
-          }
-        }
-      );
-    } else {
-      res.json({ result: "Wrong password." });
-    }
-  } else {
-    res.json({ result: "Wrong username." });
+  if (amount <= 0 || isNaN(amount)) {
+    notMoney = true;
   }
+
+  const cleint = new Client({
+    connectionString,
+  });
+
+  cleint.connect();
+
+  const userName = req.params.username;
+
+  const enoughMoneyQuery = "SELECT checkings FROM users WHERE username=$1";
+  const enoughMoneyValues = [userName];
+
+  cleint.query(
+    enoughMoneyQuery,
+    enoughMoneyValues,
+    (existsErr, existsSqlRes) => {
+      if (existsErr) {
+        res.status(500).json({ result: "Internal Server Error" });
+      } else {
+        var amountInCheckings = existsSqlRes.rows[0].checkings;
+        if (amount > amountInCheckings) {
+          res.status(400).json({ result: "Insufficient funds" });
+        } else {
+          const existsQuery =
+            "SELECT EXISTS(SELECT * from users WHERE username=$1);";
+          const existsValues = [userName];
+          cleint.query(existsQuery, existsValues, (err, sqlRes) => {
+            if (err) {
+              res.status(500).json({ result: "Internal Server Error" });
+            } else if (sqlRes.rows[0].exists === true) {
+              if (notMoney == false) {
+                const updateQuery =
+                  "UPDATE users SET savings=savings+$1, checkings=checkings-$2 WHERE username=$3";
+                const updateValues = [amount, amount, userName];
+                cleint.query(
+                  updateQuery,
+                  updateValues,
+                  (error, sqlResponse) => {
+                    if (error) {
+                      res.status(500).json({ result: "Internal Server Error" });
+                    } else {
+                      res.status(201).json({
+                        result: `Successfully added ${amount} to '${userName}' savings.`,
+                      });
+                    }
+                  }
+                );
+              } else {
+                res
+                  .status(500)
+                  .json({ result: "Amount provided is null or nothing" });
+              }
+            } else {
+              res
+                .status(400)
+                .json({ result: "User does not exist in the database" });
+            }
+          });
+        }
+      }
+    }
+  );
 });
 
 module.exports = router;
