@@ -98,6 +98,7 @@ router.post("/", auth.authenticateToken, (req, res) => {
       res
         .status(500)
         .json({ result: `An instance of ${userNameSQl} already exists` });
+      client.end();
     } else {
       // This is the query callback function, it takes 1 parameter
       // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
@@ -116,6 +117,7 @@ router.post("/", auth.authenticateToken, (req, res) => {
             res
               .status(201)
               .json({ result: `Created new instance of ${userNameSQl}` });
+            client.end();
           }
         }
       });

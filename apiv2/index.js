@@ -8,6 +8,16 @@ require("dotenv").config({ path: "./.env" }); // This is the dotenv package, so 
 const createUserToken = require("./routes/auth/createNewToken");
 const auth = require("./routes/auth/middleWareAuth");
 
+// Rate limiter
+const rateLimiter = require("express-rate-limit");
+
+// Limiter object to store the max amount of limuts per second
+const limiter = rateLimiter({
+  windowMs: 1000, // 1 Second
+  max: 1, // Max of 1 per second
+  message: { result: "You are being rate limited." },
+});
+
 // Below are all the routers we will be using, basically these are routes that we made but are in different files.
 // GET
 const getAllUsers = require("./routes/get/getAllUsers");
@@ -36,6 +46,9 @@ const transferMoneyToAnotherUser = require("./routes/put/transfer-money/transfer
 /// where as we cal just use > app.get("/", (req, res) => ) which is also a fancy callback function
 const app = express();
 app.use(express.json()); // This is using express.json so we can accept json as a valid body
+
+// This will affect all the endpoints
+app.use(limiter);
 
 // Route Uses
 // Auth

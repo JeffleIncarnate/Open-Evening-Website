@@ -9,6 +9,7 @@ This is gonna be a Node JS api to interact with a Web app, therefore making a pr
 - PG (8.7.3)
 - Cors (2.8.5)
 - Jsonwebtoken (8.5.1)
+- Express-Rate-Limit (6.4.0)
 
 # Dev Dependencies
 
@@ -20,6 +21,10 @@ This is gonna be a Node JS api to interact with a Web app, therefore making a pr
 - [x] Setup database (Postgre SQL)
 - [x] Authenticate user login
 - [x] Save user login to data base if they signed up
+
+## Rate Limiting:
+
+You have a total of 1 request per second.
 
 ## Endpoints:
 
@@ -183,6 +188,10 @@ or to make add money to savings, make a request to:
 then make a **PUT** request to this endpoint:
 
 `http://localhost:3000/transferMoneyToAnotherUser/{userToSendFrom}`
+
+## Contact:
+
+You can contact me on discord: ໓hrนง rคฯคt#2867 or on twitter
 
 ## Credit
 

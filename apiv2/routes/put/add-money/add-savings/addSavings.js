@@ -51,6 +51,7 @@ router.put("/:username", auth.authenticateToken, (req, res) => {
           res
             .status(200)
             .json({ result: `Succesfully added ${amount} to ${userName}` });
+          client.end();
         }
       });
     } else {

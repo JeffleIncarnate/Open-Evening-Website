@@ -59,6 +59,7 @@ router.delete("/", auth.authenticateToken, (req, res) => {
       res.status(404).json({ error: "User not in database" });
     } else {
       res.send(sqlRes.rows[0]);
+      client.end();
     }
   });
 });

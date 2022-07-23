@@ -78,6 +78,7 @@ router.put("/:username", auth.authenticateToken, (req, res) => {
                       res.status(201).json({
                         result: `Successfully added ${amount} to '${userName}' savings.`,
                       });
+                      cleint.end();
                     }
                   }
                 );
