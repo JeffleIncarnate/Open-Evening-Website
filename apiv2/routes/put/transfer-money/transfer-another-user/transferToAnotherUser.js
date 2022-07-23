@@ -86,6 +86,7 @@ router.put("/:username", auth.authenticateToken, (req, res) => {
                         res.status(201).json({
                           result: `Succesfully added ${amount} to '${transferTo}' sent from ${transferFrom}`,
                         });
+                        client.end();
                       }
                     }
                   );

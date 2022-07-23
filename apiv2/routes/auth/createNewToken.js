@@ -6,11 +6,21 @@ let router = express.Router();
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "relative/path/to/your/.env" });
 
+const usernameBody = process.env.NAME;
+const passwordBody = process.env.PASSWORD;
+
 // Importing json so we can take json in the request body
 router.use(express.json());
 
 // The endpoint to the token generater
 router.post("", (req, res) => {
+  if (req.body.username != usernameBody) {
+    res.status(403).json({ result: "Username invalid" });
+  }
+  if (req.body.password != passwordBody) {
+    res.status(403).json({ result: "Password invalid" });
+  }
+
   // Getting the username, and then storing it in the user object
   const username = req.body.username;
   const user = { name: username };
