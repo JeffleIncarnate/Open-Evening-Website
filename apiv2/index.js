@@ -2,7 +2,11 @@
 // We are saving the package as Express and Cors into their own variables. 'express' and 'cors'
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config(); // This is the dotenv package, so we can read an environment file and variables then save them to a var
+require("dotenv").config({ path: "./.env" }); // This is the dotenv package, so we can read an environment file and variables then save them to a var
+
+// Authentication
+const createUserToken = require("./routes/auth/createNewToken");
+const auth = require("./routes/auth/middleWareAuth");
 
 // Below are all the routers we will be using, basically these are routes that we made but are in different files.
 // GET
@@ -34,6 +38,9 @@ const app = express();
 app.use(express.json()); // This is using express.json so we can accept json as a valid body
 
 // Route Uses
+// Auth
+app.use("/login", createUserToken);
+
 // GET
 app.use("/allUsers", getAllUsers);
 app.use("/specificUser", getSpecificUser);
@@ -56,26 +63,12 @@ app.use("/transferMoneyCheckings", transferMoneyCheckings);
 app.use("/transferMoneySavings", transferMoneySavings);
 app.use("/transferMoneyToAnotherUser", transferMoneyToAnotherUser);
 
-// Environment Variables
-const name = process.env.NAME;
-const password = process.env.PASSWORD;
-
 // This is the 'https://localhost:3000/' root endpoint to make sure the user is valid, and he know's
 // what to do next
-app.get("/", async (req, res) => {
-  // In this endpoint we are accept 2 body json keys: Name, and Password, this will be the new
-  // authentication system
-  if (req.body.name === name) {
-    if (req.body.password == password) {
-      res.json({
-        result: "Please choose a real endpoint. Check the docs for more info",
-      });
-    } else {
-      res.json({ result: "Wrong password." });
-    }
-  } else {
-    res.json({ result: "Wrong username." });
-  }
+app.get("/", auth.authenticateToken, (req, res) => {
+  res.json({
+    result: "Please choose a real endpoint. Check the docs for more info",
+  });
 });
 
 // This is to make the app listen on port 3000 of localhost.
