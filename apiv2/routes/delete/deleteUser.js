@@ -2,7 +2,7 @@
 const express = require("express");
 let router = express.Router(); // This is a route, we are simply just using a let var and exporting it so we can split up our code and makeing it easier to read
 // This is the node js lirary I've chosen to go with to query my SQL server
-const { Pool, Client } = require("pg");
+const { Client } = require("pg");
 require("dotenv").config({ path: "../../.env" }); // dot env
 
 // authentication middleware
@@ -58,7 +58,9 @@ router.delete("/", auth.authenticateToken, (req, res) => {
     } else if (sqlRes.rowCount === 0) {
       res.status(404).json({ error: "User not in database" });
     } else {
-      res.send(sqlRes.rows[0]);
+      res
+        .status(201)
+        .json({ result: `Succesfully deleted user ${userNameSQL}` });
       client.end();
     }
   });

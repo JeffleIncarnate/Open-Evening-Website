@@ -2,7 +2,7 @@
 const express = require("express");
 let router = express.Router(); // This is a route, we are simply just using a let var and exporting it so we can split up our code and makeing it easier to read
 // This is the node js lirary I've chosen to go with to query my SQL server
-const { Pool, Client } = require("pg");
+const { Client } = require("pg");
 require("dotenv").config({ path: "../../.env" }); // dot env
 
 // authentication middleware
@@ -34,8 +34,16 @@ router.get("/", auth.authenticateToken, (req, res) => {
   // New syntax
   // client.query('SELECT...',  (req, sqlRes) => {})
   client.query('SELECT * FROM "public"."users"', (err, sqlRes) => {
-    res.json(sqlRes.rows); // This is getting all the rows returned from the table 'users'
-    client.end();
+    // If error, we just send it back
+    if (err) {
+      res.status(500).json({ result: "Internal Server Error" });
+      client.end();
+    }
+    // Else we just send data
+    else {
+      res.status(200).json(sqlRes.rows); // This is getting all the rows returned from the table 'users'
+      client.end();
+    }
   });
 });
 

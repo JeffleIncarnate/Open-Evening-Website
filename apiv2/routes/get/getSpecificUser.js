@@ -2,7 +2,7 @@
 const express = require("express");
 let router = express.Router(); // This is a route, we are simply just using a let var and exporting it so we can split up our code and makeing it easier to read
 // This is the node js lirary I've chosen to go with to query my SQL server
-const { Pool, Client } = require("pg");
+const { Client } = require("pg");
 require("dotenv").config({ path: "../../.env" }); // dot env
 
 // authentication middleware
@@ -16,9 +16,6 @@ router.use(express.json());
 const connectionString = process.env.CONNECTIONSTRING;
 
 // Here is the endpoint to get all the users from the database
-// it takes 2 parameters name, and password
-// @req.body param name;
-// @req.body.param password;
 // req is the name I've given to the request variable.
 // res is the name I've given to the response varaible.
 router.get("/", auth.authenticateToken, (req, res) => {

@@ -2,7 +2,7 @@
 const express = require("express");
 let router = express.Router(); // This is a route, we are simply just using a let var and exporting it so we can split up our code and makeing it easier to read
 // This is the node js lirary I've chosen to go with to query my SQL server
-const { Pool, Client } = require("pg");
+const { Client } = require("pg");
 require("dotenv").config({ path: "../../.env" }); // dot env
 
 // authentication middleware
@@ -16,15 +16,12 @@ router.use(express.json());
 const connectionString = process.env.CONNECTIONSTRING;
 
 // This is the main route to post a user to the database
-// it takes 6 total paramers:
-// @req.body[0] param name;
-// @req.body[0] param password;
-// There are 2 jsons passes, one for auth, and one for data
-// body[0] is for auth, and body[1] is for data
-// @req.body[1] param username;
-// @req.body[1] param firstname;
-// @req.body[1] param lastname;
-// @req.body[1] param password;
+// it takes 5 total paramers:
+// @req.body param username;
+// @req.body param firstname;
+// @req.body param lastname;
+// @req.body param password;
+// @req.body param email;
 router.post("/", auth.authenticateToken, (req, res) => {
   // Saving the values from req.body[1] and setting them to constants since they can't change
   const userNameSQl = req.body.username;
@@ -87,8 +84,18 @@ router.post("/", auth.authenticateToken, (req, res) => {
   const existsQuery = "SELECT EXISTS(SELECT * from users WHERE username=$1);";
   const existsValues = [userNameSQl];
 
+  // User exists variable the reason we have this is beacause if the username that you provieded does exist, then we retrun an error
   let userExists = false;
 
+  // This is the query callback function, it takes 1 parameter
+  // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
+  // client.query (query, values)...
+  // A call back is a new form of ES6 Javascript syntax
+  // Old syntax:
+  // client.query('SELECT...' function(req, sqlRes) {...})
+  // New syntax:
+  // client.query('SELECT...',  (req, sqlRes) => {})
+  // Here we are checking if the user does exist.
   client.query(existsQuery, existsValues, (err, sqlRes) => {
     // err, set status and send
     if (err) {
@@ -108,11 +115,14 @@ router.post("/", auth.authenticateToken, (req, res) => {
       // client.query('SELECT...' function(req, sqlRes) {...})
       // New syntax:
       // client.query('SELECT...',  (req, sqlRes) => {})
-      client.query(query, values, (err, sqlRes) => {
+      client.query(query, values, (err) => {
         // Here we are checking for errors, if we get them then we throw an 500 status code and an Internal Server Error
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
         } else {
+          // Here we are checking for the inverse of the current state of the user e.g
+          // if (userExists == false) ...;
+          // When we can just do whats below
           if (!userExists) {
             res
               .status(201)

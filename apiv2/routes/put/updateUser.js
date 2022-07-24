@@ -18,7 +18,9 @@ const password = process.env.PASSWORD;
 // I can query the database. Also, the database is a MySQL Postgre server
 const connectionString = process.env.CONNECTIONSTRING;
 
+// This is the endpoint to update a user,
 router.put("/:userName", auth.authenticateToken, (req, res) => {
+  // here we are simpley checking if the request body is null, or empty, is error, then we catch, and send it back
   try {
     if (Object.keys(req.body).length === 0) {
       res.json({ result: "Body is Empty" });
@@ -31,20 +33,26 @@ router.put("/:userName", auth.authenticateToken, (req, res) => {
   // name from the url, and the new username from the request body
   const oldUserName = req.params.userName;
 
-  if (req.body == null || Object.keys(req.body).length === 0) {
-    res.json({ result: "Provide put values" });
-  }
-
+  // Createing a constructer for the client import which is part of the pg package
   const client = new Client({
     connectionString,
   });
 
+  // Connect to database
   client.connect();
 
   // Checking if another user with the same username exists
   const existsQuery = "SELECT EXISTS(SELECT * from users WHERE username=$1);";
   const existsValues = [oldUserName];
 
+  // This is the query callback function, it takes 2 parameters: Query, and Values (Values need to be provided as an array)
+  // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
+  // client.query (query, values)...
+  // A call back is a new form of ES6 Javascript syntax
+  // Old syntax:
+  // client.query('SELECT...' function(req, sqlRes) {...})
+  // New syntax
+  // client.query('SELECT...',  (req, sqlRes) => {})
   client.query(existsQuery, existsValues, (err, sqlRes) => {
     // err, set status and send
     if (err) {
@@ -105,12 +113,29 @@ router.put("/:userName", auth.authenticateToken, (req, res) => {
       // This is adds the username where the paramers above will be changed
       query += ` WHERE username='${oldUserName}'`;
 
-      // This is the query we made as well as the values we pulled from the json.
-      client.query(query, fullListValues, (err, sqlRes) => {
+      // Since I am doing string concatination (Which is the equivilent of using namespace std in C++)
+      // It's not the safist, so I'm checking if they pulled a fast one and included 'DROP TABLE'
+      if (query.includes("DROP TABLE") || query.includes("DROP")) {
+        res.status(500).json({ result: "Not Today Satan." });
+      }
+
+      // This is the query callback function, it takes 2 parameters: Query, and values
+      // @query 'SELECT ...' or 'INSERT INTO...' it can also take parameters with the $1 variable
+      // client.query (query, values)...
+      // A call back is a new form of ES6 Javascript syntax
+      // Old syntax:
+      // client.query('SELECT...' function(req, sqlRes) {...})
+      // New syntax
+      // client.query('SELECT...',  (req, sqlRes) => {})
+      client.query(query, fullListValues, (err) => {
+        // If error, we just send it back
         if (err) {
           res.status(500).json({ result: "Internal Server Error" });
-        } else {
+        }
+        // else we just send back success
+        else {
           res.status(201).json({ result: `Updated user ${oldUserName}` });
+          client.end();
         }
       });
     }
