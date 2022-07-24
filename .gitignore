@@ -5,3 +5,5 @@ node_modules/
 api/
 .env
 Reminders.txt
+token.txt
+JS/
