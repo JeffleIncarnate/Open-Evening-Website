@@ -4,12 +4,14 @@ let router = express.Router(); // This is a route, we are simply just using a le
 // This is the node js lirary I've chosen to go with to query my SQL server
 const { Client } = require("pg");
 require("dotenv").config({ path: "../../.env" }); // dot env
+const cors = require("cors");
 
 // authentication middleware
 const auth = require("../auth/middleWareAuth");
 
 // Here we can accept json as a valid body object
 router.use(express.json());
+router.use(cors());
 
 // This is the connection string to my Database, I am using this with the PG node js library so
 // I can query the database. Also, the database is a MySQL Postgre server

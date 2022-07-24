@@ -50,6 +50,9 @@ app.use(express.json()); // This is using express.json so we can accept json as 
 // This will affect all the endpoints
 app.use(limiter);
 
+// This is for CORS, so I can call it from my website
+app.use(cors());
+
 // Route Uses
 // Auth
 app.use("/login", createUserToken);
