@@ -46,12 +46,10 @@ const transferMoneyToAnotherUser = require("./routes/put/transfer-money/transfer
 /// where as we cal just use > app.get("/", (req, res) => ) which is also a fancy callback function
 const app = express();
 app.use(express.json()); // This is using express.json so we can accept json as a valid body
+app.use(cors());
 
 // This will affect all the endpoints
 app.use(limiter);
-
-// This is for CORS, so I can call it from my website
-app.use(cors());
 
 // Route Uses
 // Auth
