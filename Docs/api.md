@@ -143,6 +143,10 @@ Then make a **POST** request to the endpoint:
 }
 ```
 
+then make a **POST** request to this endpoint:
+
+`http://localhost:3000/confirmUser`
+
 ### Put (HTTP Request Method)
 
 1: Update user:
