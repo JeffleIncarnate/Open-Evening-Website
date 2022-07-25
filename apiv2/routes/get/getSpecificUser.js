@@ -18,14 +18,14 @@ const connectionString = process.env.CONNECTIONSTRING;
 // Here is the endpoint to get all the users from the database
 // req is the name I've given to the request variable.
 // res is the name I've given to the response varaible.
-router.get("/", auth.authenticateToken, (req, res) => {
+router.get("/:username", auth.authenticateToken, (req, res) => {
   // Here I am creating a constructor with the value of @connectionString const so I can connect
   const client = new Client({
     connectionString,
   });
 
-  // Username from the request body
-  const userName = req.body.username;
+  // Username from the Req parameter
+  const userName = req.params.username;
 
   let query = "SELECT * FROM users WHERE username = $1";
   const values = [userName];

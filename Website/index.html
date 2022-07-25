@@ -9,11 +9,11 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav onclick="">
         <h2>Dhruv Banking™</h2>
         <ul>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Register</a></li>
+          <li><a href="PAGES/LoginPage.html">Login</a></li>
+          <li><a href="#register">Register</a></li>
         </ul>
       </nav>
 
@@ -26,26 +26,46 @@
       <div class="DHR__Main-Links">
         <ul>
           <li>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Never</a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              >Never</a
+            >
           </li>
           <li>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Gonna</a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              >Gonna</a
+            >
           </li>
           <li>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Give</a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              >Give</a
+            >
           </li>
           <li>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">You</a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              >You</a
+            >
           </li>
           <li>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Up</a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              >Up</a
+            >
           </li>
         </ul>
       </div>
 
       <!-- LOGIN/REGISTER SECTION -->
-      <div class="DHR__Main-Register">
-        <form onsubmit="getDataPostUser(); return false">
+      <div id="register" class="DHR__Main-Register">
+        <form onsubmit="PostUser(); return false" method="post">
           <!-- TITLE -->
           <h2>Register!</h2>
 
@@ -96,11 +116,31 @@
     </main>
 
     <footer>
-      <div class="DHR__Footer-Left"><ul></ul></div>
-      <div class="DHR__Footer-Right"></div>
+      <div class="DHR__Footer-Left">
+        <ul>
+          <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">
+            <li>Never</li>
+          </a>
+          <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">
+            <li>Gonna</li>
+          </a>
+          <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">
+            <li>Give</li>
+          </a>
+          <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">
+            <li>You</li>
+          </a>
+          <a target="_blank" href="https://www.youtube.com/watch?v=xvFZjo5PgG0">
+            <li>Up</li>
+          </a>
+        </ul>
+      </div>
+      <div class="DHR__Footer-Right">
+        <h2>© Bank of Dhruv 2022</h2>
+      </div>
     </footer>
 
     <!-- SCRIPTS -->
-    <script src="JS/signUp.js"></script>
+    <script src="JS/signUpUser.js"></script>
   </body>
 </html>

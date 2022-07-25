@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../CSS/LoginPage.css" />
   </head>
   <body>
-    <nav>
+    <nav onclick="LoginToIndex()">
       <h2>Dhruv Banking™</h2>
       <ul>
         <li>Personal Banking</li>
@@ -17,7 +17,7 @@
     </nav>
 
     <main>
-      <form action="" onsubmit="GetData(); return false">
+      <form onsubmit="getData(); return false" method="post">
         <h2>Welcome</h2>
         <label for="AccessNumber"><strong>User Name</strong></label>
         <input
@@ -39,7 +39,7 @@
       </form>
     </main>
 
-    <script src="JS/changeWindows.js"></script>
-    <script src="JS/getData.js"></script>
+    <script src="../JS/changeWindows.js"></script>
+    <script src="../JS/loginUser.js"></script>
   </body>
 </html>

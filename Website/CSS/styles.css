@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--white);
   margin: 0;
@@ -63,6 +67,7 @@ nav > ul li {
   background-position-y: -350px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   background-image: url("https://www.bnz.co.nz/assets/bnz/personal-banking/welcome-area/home-loans-welcome-area-desktop.jpg?9518642f999a31c59f25bf39448409cae58bfe64");
 }
 
@@ -159,4 +164,29 @@ form h2 {
 #submit:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+/* -- FOOTER -- */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5rem;
+  background-color: rgb(246, 246, 246);
+}
+
+.DHR__Footer-Left ul li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 0 3rem;
+}
+
+.DHR__Footer-Left ul li a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.DHR__Footer-Right h2 {
+  margin-right: 2rem;
+  height: 100%;
 }
