@@ -132,6 +132,17 @@ Then make a **POST** request to the endpoint:
 
 `http://localhost:3000/postUser/`
 
+2: Authenticate a user from Login Page:
+
+> This is the endpoint to authenticate a user, rather than doing it from client side. it take 2 parameters: Username and Password
+
+```json
+{
+  "username": "...",
+  "password": "..."
+}
+```
+
 ### Put (HTTP Request Method)
 
 1: Update user:

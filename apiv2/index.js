@@ -25,6 +25,7 @@ const getSpecificUser = require("./routes/get/getSpecificUser");
 
 // POST
 const postUser = require("./routes/post/postUser");
+const confirmUser = require("./routes/post/userInDatabase");
 
 // DELETE
 const deteteUser = require("./routes/delete/deleteUser");
@@ -61,6 +62,7 @@ app.use("/specificUser", getSpecificUser);
 
 // POST
 app.use("/postUser", postUser);
+app.use("/confirmUser", confirmUser);
 
 // DELETE
 app.use("/deleteUser", deteteUser);
