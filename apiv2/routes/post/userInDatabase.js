@@ -59,7 +59,7 @@ router.post("/", auth.authenticateToken, (req, res) => {
     else {
       // if the password is equal to the password provided, then the user is authenticated
       if (sqlRes.rows[0].password === password) {
-        res.status(200).json({ reuslt: "Authenticated" });
+        res.status(200).json({ result: "Authenticated" });
       }
       // else we return an error
       else {
