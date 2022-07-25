@@ -19,7 +19,7 @@ const connectionString = process.env.CONNECTIONSTRING;
 // it takes 2 paramerters:
 // @param.username in the request body
 // @param.password in the request body
-router.get("/", auth.authenticateToken, (req, res) => {
+router.post("/", auth.authenticateToken, (req, res) => {
   // Saving the values provided to Variables so the are easier to access
   const userName = req.body.username;
   const password = req.body.password;
