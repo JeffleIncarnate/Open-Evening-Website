@@ -4,7 +4,144 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Second Page</title>
+    <title>Place Holder</title>
+    <link rel="stylesheet" href="../CSS/BankingPage.css" />
   </head>
-  <body></body>
+  <body>
+    <nav onclick="">
+      <h2>Dhruv Banking™</h2>
+      <ul>
+        <li><a href="#">Personal Banking</a></li>
+        <li><a class="logOut" onclick="logOut()" href="#">Log Out</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="DHR__Main-Account Checkings">
+        <h2>Checkings</h2>
+        <p id="checkings">Loading...</p>
+      </div>
+      <div class="DHR__Main-Account Savings">
+        <h2>Savings</h2>
+        <p id="savings">Loading...</p>
+      </div>
+
+      <hr />
+
+      <div class="DHR__Main-Transfer_Money">
+        <h2>Transfer Money From Accounts</h2>
+
+        <form
+          class="DHR__Main-Transfer_Money_sameAccount"
+          onsubmit="getTransferData(); return false"
+        >
+          <div>
+            <select id="transferFrom" name="transferFrom">
+              <option value="Checkings">Checkings</option>
+              <option value="Savings">Savings</option>
+            </select>
+
+            <div>
+              <img src="../Images/download.png" alt="" />
+            </div>
+
+            <select id="transferTo" name="transferTo">
+              <option value="Savings">Savings</option>
+              <option value="Checkings">Checkings</option>
+            </select>
+          </div>
+
+          <input
+            id="Amount"
+            type="number"
+            placeholder="Enter Amount to Send"
+            name="name"
+            min="1"
+            max="1000"
+            required
+          />
+          <input type="submit" id="Submit" />
+        </form>
+      </div>
+
+      <hr />
+
+      <div class="DHR__Main-Transfer_Money-AnotherUser">
+        <h2>Transfer money to another User</h2>
+        <form onsubmit="getData(); return false">
+          <!-- USERNAME -->
+          <input
+            id="Username"
+            type="text"
+            placeholder="Enter Username of the reciever"
+            name="username"
+            required
+          />
+
+          <!-- AMOUNT -->
+          <input
+            id="AmountTransfer"
+            type="number"
+            placeholder="Enter Amount to Send"
+            name="name"
+            min="1"
+            max="1000"
+            required
+          />
+
+          <input id="Submit" type="submit" />
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <div class="DHR__Footer-Left">
+        <ul>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              target="_blank"
+              >Never</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              target="_blank"
+              >Gonna</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              target="_blank"
+              >Give</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              target="_blank"
+              >You</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+              target="_blank"
+              >Up</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="DHR__Footer-Right">
+        <h2>© Bank of Dhruv 2022</h2>
+      </div>
+    </footer>
+
+    <script src="../JS/banking.js"></script>
+    <script src="../JS/changeWindows.js"></script>
+    <script src="../JS/transferMoney.js"></script>
+    <script src="../JS/transferMoneyAnotherUser.js"></script>
+  </body>
 </html>

@@ -1,0 +1,279 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--white);
+  margin: 0;
+  padding: 0;
+  color: var(--blue);
+}
+
+:root {
+  --blue: #0088a9;
+  --grey: #24252a;
+  --white: #edf0f1;
+}
+
+nav {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav h2 {
+  cursor: pointer;
+  position: relative;
+  color: var(--white);
+  bottom: 10px;
+  margin-top: 0;
+  margin-left: 2%;
+  padding: 1rem;
+  background-color: var(--blue);
+  border-radius: 0 0 1rem 1rem;
+  transition: all 0.5s;
+}
+
+nav h2:hover {
+  padding-top: 2rem;
+}
+
+nav > ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  width: 14%;
+}
+
+nav > ul li a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+nav > ul li {
+  display: inline-block;
+  margin: 0 4% 4% 4%;
+}
+
+.logOut {
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.logOut:hover {
+  opacity: 0.7;
+}
+
+hr {
+  width: 90%;
+  margin-left: calc(100 - 90 / 2);
+  border: none;
+  height: 1.1px;
+  color: var(--grey);
+  background-color: var(--grey);
+}
+
+/* -- MAIN -- */
+.DHR__Main-Account {
+  color: var(--white);
+  width: 60%;
+  border-radius: 10px;
+  margin: 0 0 3rem 20%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Checkings {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url("../Images/Checkings.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Savings {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url("../Images/Savings.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.DHR__Main-Account h2 {
+  font-size: 3rem;
+  margin: 0.5%;
+}
+
+.DHR__Main-Account p {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* -- TRANSFER MONEY -- */
+.DHR__Main-Transfer_Money {
+  width: 80%;
+  margin: 1rem 0rem 1rem 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.DHR__Main-Transfer_Money_sameAccount > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+select {
+  color: var(--blue);
+  font-size: 2rem;
+  padding: 1rem;
+  border: var(--blue) solid 2px;
+  width: auto;
+  border-radius: 10px;
+  text-align: center;
+}
+
+option {
+  text-align: center;
+}
+
+.DHR__Main-Transfer_Money_sameAccount #Amount {
+  padding: 1rem;
+  width: 50%;
+  margin-left: 25%;
+  border-top: white;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px var(--blue) solid;
+  margin-top: 1rem;
+  height: 1.5rem;
+  border-radius: 0 1rem;
+  background-color: transparent;
+  color: var(--blue);
+}
+
+.DHR__Main-Transfer_Money_sameAccount #Amount::placeholder {
+  color: var(--blue);
+}
+
+main h2 {
+  font-size: 3rem;
+}
+
+.DHR__Main-Transfer_Money_sameAccount #Submit {
+  width: 70%;
+  margin: 1rem 0 1rem 15%;
+  height: 2rem;
+  background: transparent;
+  border: var(--blue) solid 2px;
+  border-radius: 5px;
+  color: var(--blue);
+  transition: all 0.3s;
+}
+
+.DHR__Main-Transfer_Money_sameAccount #Submit:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.DHR__Main-Transfer_Money-AnotherUser {
+  text-align: center;
+  width: 80%;
+  margin: 1rem 0rem 1rem 10%;
+}
+
+.DHR__Main-Transfer_Money-AnotherUser form {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 25%;
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #Username {
+  padding: 1rem;
+  width: 50%;
+  border-top: white;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px var(--blue) solid;
+  margin-top: 1rem;
+  height: 1.5rem;
+  border-radius: 0 1rem;
+  background-color: transparent;
+  color: var(--blue);
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #Username::placeholder {
+  color: var(--blue);
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #Submit {
+  width: 70%;
+  margin: 1rem 0;
+  height: 2rem;
+  background: transparent;
+  border: var(--blue) solid 2px;
+  border-radius: 5px;
+  color: var(--blue);
+  transition: all 0.3s;
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #Submit:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #AmountTransfer {
+  padding: 1rem;
+  width: 50%;
+  border-top: white;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px var(--blue) solid;
+  margin-top: 1rem;
+  height: 1.5rem;
+  border-radius: 0 1rem;
+  background-color: transparent;
+  color: var(--blue);
+}
+
+.DHR__Main-Transfer_Money-AnotherUser #AmountTransfer::placeholder {
+  color: var(--blue);
+}
+
+/* -- FOOTER -- */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5rem;
+  background-color: rgb(246, 246, 246);
+}
+
+.DHR__Footer-Left ul li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 0 3rem;
+}
+
+.DHR__Footer-Left ul li a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.DHR__Footer-Right h2 {
+  margin-right: 2rem;
+  height: 100%;
+}

@@ -30,6 +30,8 @@ router.put("/:username", auth.authenticateToken, (req, res) => {
   // This is the amount taken from the request body
   const amount = req.body.amount;
 
+  let notMoney = false;
+
   // Checking if the value is NaN (Not a Number) or less tham 0
   if (amount <= 0 || isNaN(amount)) {
     // then we know it's not money

@@ -14,7 +14,7 @@ const rateLimiter = require("express-rate-limit");
 // Limiter object to store the max amount of limuts per second
 const limiter = rateLimiter({
   windowMs: 1000, // 1 Second
-  max: 1, // Max of 1 per second
+  max: 3, // Max of 1 per second
   message: { result: "You are being rate limited." },
 });
 
